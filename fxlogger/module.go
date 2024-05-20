@@ -3,7 +3,7 @@ package fxlogger
 import (
 	"context"
 
-	"github.com/ecumenos-social/toolkitfx/toolkitfx"
+	"github.com/ecumenos-social/toolkitfx"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )

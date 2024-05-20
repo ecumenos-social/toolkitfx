@@ -7,7 +7,7 @@ import (
 	"time"
 
 	grpcutils "github.com/ecumenos-social/grpc-utils"
-	"github.com/ecumenos-social/toolkitfx/toolkitfx"
+	"github.com/ecumenos-social/toolkitfx"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"go.uber.org/fx"
 	"go.uber.org/zap"

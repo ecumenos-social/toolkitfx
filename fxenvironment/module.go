@@ -3,7 +3,7 @@ package fxenvironment
 import (
 	"fmt"
 
-	"github.com/ecumenos-social/toolkitfx/toolkitfx"
+	"github.com/ecumenos-social/toolkitfx"
 	"github.com/kelseyhightower/envconfig"
 	"go.uber.org/fx"
 )
