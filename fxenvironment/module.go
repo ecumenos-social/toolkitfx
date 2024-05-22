@@ -11,9 +11,9 @@ import (
 var Module = func(cfg interface{}, useServicePrefix bool) fx.Option {
 	return fx.Options(
 		fx.Provide(NewEnvConfig(cfg, useServicePrefix)),
-		fx.Invoke(
-			RaiseEnvConfigError,
-		),
+		fx.Invoke(func(ce ConfigError) error {
+			return ce.value
+		}),
 	)
 }
 
@@ -34,8 +34,4 @@ func NewEnvConfig(cfg interface{}, useServicePrefix bool) func(sn toolkitfx.Serv
 		}
 		return cfg, ConfigError{value: nil}
 	}
-}
-
-func RaiseEnvConfigError(ce ConfigError) error {
-	return ce.value
 }
