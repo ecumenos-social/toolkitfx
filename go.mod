@@ -6,7 +6,6 @@ require (
 	github.com/ecumenos-social/grpc-utils v0.0.1
 	github.com/ecumenos-social/schemas v0.0.4
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0
-	github.com/kelseyhightower/envconfig v1.4.0
 	go.uber.org/fx v1.21.1
 	go.uber.org/zap v1.27.0
 	google.golang.org/grpc v1.64.0

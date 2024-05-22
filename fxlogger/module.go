@@ -14,12 +14,12 @@ type Config struct {
 
 var Module = fx.Options(
 	fx.Provide(
-		func(lc fx.Lifecycle, serviceName toolkitfx.ServiceName, cfg *Config) (*zap.Logger, error) {
+		func(lc fx.Lifecycle, serviceName toolkitfx.ServiceName, config *Config) (*zap.Logger, error) {
 			var (
 				logger *zap.Logger
 				err    error
 			)
-			if cfg.Production {
+			if config.Production {
 				logger, err = NewProductionLogger(string(serviceName))
 			} else {
 				logger, err = NewDevelopmentLogger(string(serviceName))
