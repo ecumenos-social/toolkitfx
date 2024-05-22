@@ -15,46 +15,25 @@ import (
 )
 
 type Config struct {
-	GRPC     GRPCConfig
-	HTTP     HTTPConfig
-	Health   HealthConfig
-	Liveness LivenessConfig
-}
+	GRPCHost string `default:"0.0.0.0"`
+	GRPCPort string `default:"8080"`
 
-type GRPCConfig struct {
-	Host string `default:"0.0.0.0" json:"host" yaml:"host"`
-	Port string `default:"8080" json:"port" yaml:"port"`
-}
+	HTTPGatewayHost string `default:"0.0.0.0"`
+	HTTPGatewayPort string `default:"9090"`
 
-type HTTPConfig struct {
-	Host string `default:"0.0.0.0" json:"host" yaml:"host"`
-	Port string `default:"9090" json:"port" yaml:"port"`
-}
+	EnabledHealthServer bool   `default:"true"`
+	HealthServerHost    string `default:"0.0.0.0"`
+	HealthServerPort    string `default:"10010"`
 
-type HealthConfig struct {
-	Enabled bool   `default:"true" json:"enabled" yaml:"enabled"`
-	Host    string `default:"0.0.0.0" json:"host" yaml:"host"`
-	Port    string `default:"10010" json:"port" yaml:"port"`
-}
-
-type LivenessConfig struct {
-	Host string `default:"0.0.0.0" json:"host" yaml:"host"`
-	Port string `default:"8086" json:"port" yaml:"port"`
+	LivenessGatewayHost string `default:"0.0.0.0"`
+	LivenessGatewayPort string `default:"8086"`
 }
 
 type GRPCServer struct {
 	Server *grpcutils.Server
 }
 
-type GatewayHandler struct {
-	Handler func(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error
-}
-
-type LivenessHandler struct {
-	Handler http.Handler
-}
-
-func NewRegisteredGRPCServer(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, gs *GRPCServer) {
+func RunRegisteredGRPCServer(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, gs *GRPCServer) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			go func() {
@@ -75,11 +54,11 @@ func NewRegisteredGRPCServer(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logge
 	})
 }
 
-func NewHealthServer(lc fx.Lifecycle, s fx.Shutdowner, cfg Config, logger *zap.Logger, sn toolkitfx.ServiceName) {
-	addr := net.JoinHostPort(cfg.Health.Host, cfg.Health.Port)
+func RunHealthServer(lc fx.Lifecycle, s fx.Shutdowner, cfg *Config, logger *zap.Logger, sn toolkitfx.ServiceName) {
+	addr := net.JoinHostPort(cfg.HealthServerHost, cfg.HealthServerPort)
 	var healthServer *grpcutils.HealthHandler
-	if cfg.Health.Enabled {
-		healthServer = grpcutils.NewHealthServer(string(sn), net.JoinHostPort(cfg.GRPC.Host, cfg.GRPC.Port), logger, addr)
+	if cfg.EnabledHealthServer {
+		healthServer = grpcutils.NewHealthServer(string(sn), net.JoinHostPort(cfg.GRPCHost, cfg.GRPCPort), logger, addr)
 
 		localCtx, cancel := context.WithCancel(context.Background())
 
@@ -114,10 +93,14 @@ func NewHealthServer(lc fx.Lifecycle, s fx.Shutdowner, cfg Config, logger *zap.L
 	}
 }
 
-func NewHTTPGateway(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, cfg Config, g *GatewayHandler) error {
-	addr := net.JoinHostPort(cfg.HTTP.Host, cfg.HTTP.Port)
+type GatewayHandler struct {
+	Handler func(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error
+}
+
+func RunHTTPGateway(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, cfg *Config, g *GatewayHandler) error {
+	addr := net.JoinHostPort(cfg.HTTPGatewayHost, cfg.HTTPGatewayPort)
 	mux := runtime.NewServeMux()
-	conn := grpcutils.NewClientConnection(net.JoinHostPort(cfg.GRPC.Host, cfg.GRPC.Port))
+	conn := grpcutils.NewClientConnection(net.JoinHostPort(cfg.GRPCHost, cfg.GRPCPort))
 
 	var httpServer *http.Server
 	localCtx := context.Background()
@@ -156,8 +139,12 @@ func NewHTTPGateway(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, cfg Co
 	return nil
 }
 
-func NewLivenessGateway(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, cfg Config, h *LivenessHandler) error {
-	addr := net.JoinHostPort(cfg.Liveness.Host, cfg.Liveness.Port)
+type LivenessHandler struct {
+	Handler http.Handler
+}
+
+func RunLivenessGateway(lc fx.Lifecycle, s fx.Shutdowner, logger *zap.Logger, cfg *Config, h *LivenessHandler) error {
+	addr := net.JoinHostPort(cfg.LivenessGatewayHost, cfg.LivenessGatewayPort)
 	var httpServer *http.Server
 
 	lc.Append(fx.Hook{
