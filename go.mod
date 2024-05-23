@@ -4,6 +4,7 @@ go 1.21.5
 
 require (
 	github.com/ecumenos-social/grpc-utils v0.0.1
+	github.com/ecumenos-social/id-generator v0.0.2
 	github.com/ecumenos-social/schemas v0.0.4
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0
 	go.uber.org/fx v1.21.1
