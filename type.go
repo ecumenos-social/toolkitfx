@@ -30,7 +30,7 @@ func (cfg *AppConfig) Validate() error {
 	if len(cfg.AddrSuffix) < 1 || len(cfg.AddrSuffix) > 10 {
 		return fmt.Errorf("invalid address suffix (requirements: 1 < address_suffix <= 10, actual: %s)", cfg.AddrSuffix)
 	}
-	if maxNodeValue := int64(1<<(idgenerator.TopLevelMachineBits-1) - 1); cfg.NodeID < 0 || cfg.NodeID > maxNodeValue {
+	if maxNodeValue := int64(1<<idgenerator.TopLevelMachineBits - 1); cfg.NodeID < 0 || cfg.NodeID > maxNodeValue {
 		return fmt.Errorf("invalid node id (requirements: 0 < node_id <= %d, actual: %d)", maxNodeValue, cfg.NodeID)
 	}
 
