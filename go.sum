@@ -9,8 +9,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/ecumenos-social/grpc-utils v0.0.1 h1:tH7X8sW7+tfjM2bOUjIYmzFnuX2eNA0/d4RctGw8RO4=
 github.com/ecumenos-social/grpc-utils v0.0.1/go.mod h1:os4xHtcifDCUwxQT5wbWGi2tCwjDAT79zFQHZZ3dz6M=
-github.com/ecumenos-social/id-generator v0.0.2 h1:WeeFWaJVi8Nm2bs6ACs3UMG9PbO+zQljvIWAyKWoNq0=
-github.com/ecumenos-social/id-generator v0.0.2/go.mod h1:wCWZYOTJbdjqSQiWPdLRCrIQudqDBBn5/CXTnw5UPfA=
+github.com/ecumenos-social/id-generator v0.0.3 h1:hNh0mOLAoSAWbc6taEBSY5701l4uUkutj/1bEvuJlJU=
+github.com/ecumenos-social/id-generator v0.0.3/go.mod h1:wCWZYOTJbdjqSQiWPdLRCrIQudqDBBn5/CXTnw5UPfA=
 github.com/ecumenos-social/schemas v0.0.4 h1:urSHXqfwAg+T8gZN17gfARYsudLpUZjuFr7FLJH98+g=
 github.com/ecumenos-social/schemas v0.0.4/go.mod h1:TAmybCAsf9PTP+utnU0AZzcO/DxAoIMyh/bv2wHVcZk=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
