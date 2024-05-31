@@ -3,6 +3,7 @@ package toolkitfx_test
 import (
 	"testing"
 
+	"github.com/ecumenos-social/toolkit/types"
 	"github.com/ecumenos-social/toolkitfx"
 	"github.com/stretchr/testify/assert"
 )
@@ -17,14 +18,14 @@ func TestAppConfig_Validate(t *testing.T) {
 			cfg: &toolkitfx.AppConfig{
 				Name:        "test-network-warden",
 				Description: "test-network-warden is warden for network",
-				RateLimit:   0.1,
+				RateLimit:   &types.RateLimit{},
 			},
 		},
 		"should returns error for invalid name": {
 			cfg: &toolkitfx.AppConfig{
 				Name:        "t",
 				Description: "test-network-warden is warden for network",
-				RateLimit:   0.1,
+				RateLimit:   &types.RateLimit{},
 			},
 			isErr:  true,
 			errMsg: "invalid name (requirements: 3 < name <= 50, actual: t)",
@@ -33,7 +34,7 @@ func TestAppConfig_Validate(t *testing.T) {
 			cfg: &toolkitfx.AppConfig{
 				Name:        "test-network-warden",
 				Description: "test",
-				RateLimit:   0.1,
+				RateLimit:   &types.RateLimit{},
 			},
 			isErr:  true,
 			errMsg: "invalid description (requirements: 10 < description <= 1024, actual: test)",

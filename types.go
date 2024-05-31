@@ -2,6 +2,8 @@ package toolkitfx
 
 import (
 	"fmt"
+
+	"github.com/ecumenos-social/toolkit/types"
 )
 
 type ServiceName string
@@ -9,9 +11,11 @@ type ServiceName string
 type ServiceVersion string
 
 type AppConfig struct {
+	ID          int64
+	IDGenNode   int64
 	Name        string // string (min: 3 chars, max: 50 chars)
 	Description string // string (min:10, max: 1024)
-	RateLimit   float64
+	RateLimit   *types.RateLimit
 }
 
 func (cfg *AppConfig) Validate() error {
