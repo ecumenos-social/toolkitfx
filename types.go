@@ -15,7 +15,7 @@ type NetworkWardenAppConfig struct {
 	IDGenNode     int64
 	Name          string // string (min: 3 chars, max: 50 chars)
 	Description   string // string (min:10, max: 1024)
-	AddressSuffix string
+	AddressSuffix string // string (min:1, max: 30)
 	RateLimit     *types.RateLimit
 }
 
