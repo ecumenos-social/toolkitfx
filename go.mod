@@ -5,7 +5,6 @@ go 1.21.5
 require (
 	github.com/ecumenos-social/grpc-utils v0.0.1
 	github.com/ecumenos-social/id-generator v0.0.3
-	github.com/ecumenos-social/network-warden v0.0.0-20240807131804-b7d5849d58dc
 	github.com/ecumenos-social/postgresql-driver v0.0.1
 	github.com/ecumenos-social/schemas v0.0.21
 	github.com/ecumenos-social/toolkit v0.0.4

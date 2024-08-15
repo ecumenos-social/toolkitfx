@@ -3,7 +3,7 @@ package fxpostgres
 import (
 	"context"
 
-	"github.com/ecumenos-social/network-warden/pkg/postgres"
+	postgres "github.com/ecumenos-social/postgresql-driver"
 	"github.com/jackc/pgx/v4"
 	"go.uber.org/fx"
 )
