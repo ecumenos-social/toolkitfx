@@ -8,49 +8,36 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNetworkWardenAppConfig_Validate(t *testing.T) {
+func TestAppConfig_Validate(t *testing.T) {
 	tests := map[string]struct {
-		cfg    *toolkitfx.NetworkWardenAppConfig
+		cfg    *toolkitfx.AppConfig
 		isErr  bool
 		errMsg string
 	}{
 		"should be ok": {
-			cfg: &toolkitfx.NetworkWardenAppConfig{
-				Name:          "test-network-warden",
-				Description:   "test-network-warden is warden for network",
-				AddressSuffix: "nw1",
-				RateLimit:     &types.RateLimit{},
+			cfg: &toolkitfx.AppConfig{
+				Name:        "test-network-warden",
+				Description: "test-network-warden is warden for network",
+				RateLimit:   &types.RateLimit{},
 			},
 		},
 		"should returns error for invalid name": {
-			cfg: &toolkitfx.NetworkWardenAppConfig{
-				Name:          "t",
-				Description:   "test-network-warden is warden for network",
-				AddressSuffix: "nw1",
-				RateLimit:     &types.RateLimit{},
+			cfg: &toolkitfx.AppConfig{
+				Name:        "t",
+				Description: "test-network-warden is warden for network",
+				RateLimit:   &types.RateLimit{},
 			},
 			isErr:  true,
 			errMsg: "invalid name (requirements: 3 < name <= 50, actual: t)",
 		},
 		"should returns error for invalid description": {
-			cfg: &toolkitfx.NetworkWardenAppConfig{
-				Name:          "test-network-warden",
-				Description:   "test",
-				AddressSuffix: "nw1",
-				RateLimit:     &types.RateLimit{},
+			cfg: &toolkitfx.AppConfig{
+				Name:        "test-network-warden",
+				Description: "test",
+				RateLimit:   &types.RateLimit{},
 			},
 			isErr:  true,
 			errMsg: "invalid description (requirements: 10 < description <= 1024, actual: test)",
-		},
-		"should returns error for invalid address suffix": {
-			cfg: &toolkitfx.NetworkWardenAppConfig{
-				Name:          "test-network-warden",
-				Description:   "test-network-warden is warden for network",
-				AddressSuffix: "",
-				RateLimit:     &types.RateLimit{},
-			},
-			isErr:  true,
-			errMsg: "invalid address suffix (requirements: 1 < address suffix <= 30, actual: )",
 		},
 	}
 	for name, data := range tests {
