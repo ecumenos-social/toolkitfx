@@ -10,19 +10,19 @@ import (
 
 func TestAppConfig_Validate(t *testing.T) {
 	tests := map[string]struct {
-		cfg    *toolkitfx.AppConfig
+		cfg    *toolkitfx.GenericAppConfig
 		isErr  bool
 		errMsg string
 	}{
 		"should be ok": {
-			cfg: &toolkitfx.AppConfig{
+			cfg: &toolkitfx.GenericAppConfig{
 				Name:        "test-network-warden",
 				Description: "test-network-warden is warden for network",
 				RateLimit:   &types.RateLimit{},
 			},
 		},
 		"should returns error for invalid name": {
-			cfg: &toolkitfx.AppConfig{
+			cfg: &toolkitfx.GenericAppConfig{
 				Name:        "t",
 				Description: "test-network-warden is warden for network",
 				RateLimit:   &types.RateLimit{},
@@ -31,7 +31,7 @@ func TestAppConfig_Validate(t *testing.T) {
 			errMsg: "invalid name (requirements: 3 < name <= 50, actual: t)",
 		},
 		"should returns error for invalid description": {
-			cfg: &toolkitfx.AppConfig{
+			cfg: &toolkitfx.GenericAppConfig{
 				Name:        "test-network-warden",
 				Description: "test",
 				RateLimit:   &types.RateLimit{},
